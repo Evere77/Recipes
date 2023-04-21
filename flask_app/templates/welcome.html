@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/bootstrap.css') }}">
+  <title>Welcome</title>
+</head>
+<body class="container">
+  <div class="d-flex justify-content-between mt-5">
+    <div>
+      <h1>Welcome, {{logged_user.first_name}}</h1>
+      <p>All posted recipes:</p>
+    </div>
+    <div class="ml-5 mt-5">
+      <a href="/recipe/new">+ Create</a>
+      <a href="/logout">logout</a>
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Under</th>
+        <th>Posted By</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for one_recipe in all_recipes :%}
+      <tr>
+        <td>{{one_recipe.name}}</td>
+        <td>
+        {% if one_recipe.under_30 == 1 %}
+        Yes
+        {% else %}
+        No
+        {% endif %}
+        </td>
+        <td>{{one_recipe.maker.first_name}}</td>
+        <td>
+          <a href="/recipes/{{one_recipe.id}}">view recipe</a> |
+          {% if session['user_id'] == one_recipe.maker.id %}
+          <a href="/recipes/edit/{{one_recipe.id}}">edit</a> |
+          <a href="/recipes/delete/{{one_recipe.id}}">delete</a>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>

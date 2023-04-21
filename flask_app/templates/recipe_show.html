@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/bootstrap.css') }}">
+  <title>Recipe Share</title>
+</head>
+<body class="container">
+  <div class="d-flex justify-content-between mt-5">
+    <div>
+      <h1>Welcome,</h1>
+    </div>
+    <div>
+      <a href="/recipes">back to recipes</a>
+      <a href="/logout">logout</a>
+    </div>
+  </div>
+  <h2>{{this_recipe.name}}</h2>
+  <h3>Posted by: {{this_recipe.maker.first_name}}</h3>
+  <div class="d-flex">
+    <div class="card" style="width: 18rem;">
+      <div class="card-header">
+        Description:
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Under 30 Minutes?</li>
+        <li class="list-group-item">Instructions:</li>
+        <li class="list-group-item">Date Made:</li>
+      </ul>
+    </div>
+    <div class="card" style="width: 18rem;">
+      <div class="card-header">
+        {{this_recipe.description}}
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+        {% if this_recipe.under_30 == 1 %}
+        Yes
+        {% else %}
+        No
+        {% endif %}
+        </li>
+        <li class="list-group-item">{{this_recipe.instructions}}</li>
+        <li class="list-group-item">{{this_recipe.date}}</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

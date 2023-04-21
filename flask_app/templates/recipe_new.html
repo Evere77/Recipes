@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/bootstrap.css') }}">
+  <title>Recipe Share</title>
+</head>
+<body class="container mt-5">
+  <h1>Add a New Recipe!</h1>
+  <a href="/recipes">back to recipes</a>
+  <a href="/logout">logout</a>
+  {% for message in get_flashed_messages() %}
+        <p style="color: red">{{message}}</p>
+      {% endfor %}
+  <form action="/recipe/create" method="POST">
+    <input type="hidden" name="user_id" value="{{session.user_id}}">
+    <div>
+      Name
+      <br>
+      <input name="name">
+    </div>
+    <div>
+      Description
+      <br>
+      <textarea name="description" cols="30" row="4"></textarea>
+    </div>
+    <div>
+      Instructions
+      <br>
+      <textarea name="instructions" cols="30" rows="4"></textarea>
+    </div>
+    <div>
+      Date Cooked/Made:
+      <br>
+      <input type="date" name="date" class="mb-4">
+    </div>
+    <div>
+      <p>Under 30 minutes?</p>
+      <input type="radio" name="under_30" value="1">
+      Yes
+      <input type="radio" name="under_30" value="0">
+      No
+    </div>
+    <button class="mt-4">Submit</button>
+  </form>
+</body>
+</html>
